@@ -633,9 +633,9 @@
             clearTimeout(this.timeout);
 
             this.$elmt.removeClass('vegas-container');
-            this.$elmt.find('> .vegas-slide').remove();
-            this.$elmt.find('> .vegas-wrapper').clone(true).children().appendTo(this.$elmt);
-            this.$elmt.find('> .vegas-wrapper').remove();
+            this.$elmt.find('.vegas-slide').remove();
+            this.$elmt.find('.vegas-wrapper').clone(true).children().appendTo(this.$elmt);
+            this.$elmt.find('.vegas-wrapper').remove();
 
             if (this.settings.timer) {
                 this.$timer.remove();
