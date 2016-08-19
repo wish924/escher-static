@@ -37,6 +37,7 @@ var Pano = {
     isUserInteracting: false,
     isPic: false,
     radius: 500,
+    maxDis: 100000,
 
     initVideo: function(url) {
         var video = document.createElement('video');
@@ -111,6 +112,10 @@ var Pano = {
         Pano.lat = Math.max( - 85, Math.min( 85, Pano.lat ) );
         Pano.phi = THREE.Math.degToRad( 90 - Pano.lat );
         Pano.theta = THREE.Math.degToRad( Pano.lon );
+
+        if(Pano.distance >= Pano.maxDis){
+            Pano.distance = Pano.maxDis;
+        }
 
         Pano.camera.position.x = Pano.distance * Math.sin( Pano.phi ) * Math.cos( Pano.theta );
         Pano.camera.position.y = Pano.distance * Math.cos( Pano.phi );
