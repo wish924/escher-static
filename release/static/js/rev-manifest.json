@@ -1,6 +1,7 @@
 {
+  "lib/common.js": "lib/common-2202ced434.js",
   "lib/three.js": "lib/three-7665b402c2.js",
-  "lib/vegas.js": "lib/vegas-35dd5b471d.js",
-  "lib/zepto.js": "lib/zepto-4cfed95346.js",
-  "web/index.js": "web/index-a2f1c3d8aa.js"
+  "lib/vegas.js": "lib/vegas-7584a9e68a.js",
+  "lib/zepto.js": "lib/zepto-762cc59669.js",
+  "web/index.js": "web/index-92809a349e.js"
 }
