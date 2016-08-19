@@ -157,8 +157,8 @@ var Pano = {
         Pano.onPointerDownPointerX = touch.pageX;
         Pano.onPointerDownPointerY = touch.pageY;
 
-        Pano.onPointerDownLon = lon;
-        Pano.onPointerDownLat = lat;
+        Pano.onPointerDownLon = Pano.lon;
+        Pano.onPointerDownLat = Pano.lat;
     },
 
     onDocumentTouchMove: function( event ) {
