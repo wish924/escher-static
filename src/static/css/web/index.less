@@ -1,0 +1,126 @@
+@import "../includes/global-pc.less";
+@import "../includes/loading.less";
+
+body {
+    background-color: rgba(0, 0, 0, .7);
+    height: 100vh;
+    overflow: hidden !important;
+}
+
+.container {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    .left-sidebar {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 6.5%;
+        width: 13%;
+        height: 100%;
+        max-width: 250px;
+        min-width: 230px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.3) 78%, rgba(255,255,255,0) 100%);
+
+        .logo {
+            padding: 42px 0 30px 0;
+
+            img {
+                display: block;
+                margin: auto;
+                width: 180px;
+                height: 200px;
+            }
+        }
+
+        .menu {
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            font-size: 16px;
+            line-height: 2;
+
+            li {
+                text-align: -webkit-match-parent;
+
+                a {
+                    text-align: center;
+                    display: block;
+                    padding: 7px 10px;
+                    color: @gray;
+                    transition: all 0.4s;
+
+                    &:hover {
+                        color: @white;
+                        background: rgba(0,0,0,0.3);
+                    }
+                }
+            }
+        }
+
+        .footer {
+            position: absolute;
+            display: block;
+            width: 100%;
+            bottom: 3%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: @gray-lighter;
+        }
+    }
+
+    .content {
+        position: absolute;
+        bottom: 16%;
+        right: 0;
+        margin: 0 6.5% 0 24.5%;
+        text-align: right;
+        color: @white;
+
+        h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.33);
+        }
+
+        p {
+            margin-top: 1em;
+            font-size: 18px;
+
+            a {
+                display: inline-block;
+                vertical-align: middle;
+                border: 1px solid @white;
+                transition: all 0.4s;
+                color: @white;
+                padding: 13px 0;
+                margin: 1em 0 0 2em;
+                width: 200px;
+                text-align: center;
+
+                &:hover {
+                    color: @black;
+                    text-shadow: none;
+                    background-color: @white;
+                }
+            }
+        }
+    }
+}
+
+#loading {
+    position: fixed;
+    top: 10px;
+    right: 30px;
+    display: block;
+    width: 120px;
+
+    .tip {
+        color: @white;
+        margin-top: @padding-large-vertical;
+    }
+}
+
+@import "../includes/vegas.less";

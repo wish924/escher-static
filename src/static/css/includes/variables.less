@@ -1,0 +1,117 @@
+//
+// Variables
+// --------------------------------------------------
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+@white:                  #fff;
+@black:                  #000;
+@gray:                   #4a4a4a;
+@gray-light:             #5d5d5d;
+@gray-lighter:           #9b9b9b;
+@gray-border:            #979797;
+
+@gray-line:              #dfdfdd;
+@gray-background:        #f2f2f2;
+
+@yellow:                 #ffc400;
+@orange:                 #ff9c2b;
+@orange-dark:            #ff7c2b;
+@orange-light:           #fff7d1;
+@green:                  #24d300;
+@green-light:            #5eff54;
+@green-background:       #75e177;
+
+@blue:                   #037aff;
+@red:                    #fb4057;
+@red-dot:                #f2001e;
+
+@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+
+@footer-bg: #fafafa;
+
+@common-bg-url: '/img/mall/common-bg.png?v=4';
+@common-bg-width: 340px;
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+@body-bg:               #fff;
+//** Global text color on `<body>`.
+@text-color:            @gray;
+
+//** Global textual link color.
+@link-color:            @gray;
+//** Link hover color set via `darken()` function.
+@link-hover-color:      darken(@link-color, 15%);
+//** Link hover decoration.
+@link-hover-decoration: underline;
+
+//** Body max width
+.body-max-width() {
+    width: 100%;
+    max-width: 750px;
+    min-width: 320px;
+}
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+@font-family-yahei: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-base:  @font-family-yahei;
+
+@font-size-base:          14px;
+@font-size-xl:            1.42857143rem; // ~20px
+@font-size-larger:        1.28571429rem; // ~18px
+@font-size-large:         1.14285714rem; // ~16px
+@font-size-small:         0.85714286rem; // ~12px
+@font-size-smaller:       0.71428571rem; // ~10px
+@font-size-xs:            0.57142857rem; // ~8px
+
+@font-size-h1:            2.6rem; // ~36px
+@font-size-h2:            2.15rem; // ~30px
+@font-size-h3:            1.7rem; // ~24px
+@font-size-h4:            1.25rem; // ~18px
+@font-size-h5:            1rem;
+@font-size-h6:            0.85rem; // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+@line-height-base:        1.428571429; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor(@line-height-base); // ~20px
+
+//** By default, this inherits from the `<body>`.
+@headings-font-family:    inherit;
+@headings-font-weight:    500;
+@headings-line-height:    1.1;
+@headings-color:          inherit;
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+@padding-base-vertical:     0.57142857rem; // 8px
+@padding-base-horizontal:   0.71428571rem; // 10px
+
+@padding-large-vertical:    0.71428571rem; // 10px
+@padding-large-horizontal:  1.07142857rem; // 15px
+
+@padding-small-vertical:    0.28571429rem; // 4px
+@padding-small-horizontal:  0.35714286rem; // 5px
+
+@padding-xs-vertical:       1px;
+@padding-xs-horizontal:     5px;
+
+@line-height-small:         1.3333333; // extra decimals for Win 8.1 Chrome
+@line-height-large:         1.5;
+
+@border-radius-base:        0.28571429rem; // 4px
+@border-radius-large:       0.42857143rem; // 6px
+@border-radius-small:       0.21428571rem; // 3px
