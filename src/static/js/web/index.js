@@ -11,6 +11,7 @@ $(function() {
     if(!Env.isIE()) {
         if(Env.isMobile()) {
             $("#loading").hide();
+            $("body").removeClass("ms-controller");
             Pano.initPic("http://obfgoys2n.bkt.clouddn.com/environment.jpg");
         } else {
             var video_src = "http://obfgoys2n.bkt.clouddn.com/xiaomi_VR_preview_727_2.mp4";
