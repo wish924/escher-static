@@ -156,7 +156,7 @@ var Pano = {
     onDocumentTouchStart: function( event ) {
         var touch = event.touches[0];
 
-        event.preventDefault();
+        //event.preventDefault();
         Pano.isUserInteracting = true;
 
         Pano.onPointerDownPointerX = touch.pageX;
