@@ -13,6 +13,7 @@ var rev = require('gulp-rev');
 var revDel = require('rev-del');
 var revReplace = require("gulp-rev-replace");
 var gulpSequence = require('gulp-sequence');
+var gulpCopy = require('gulp-copy');
 
 var SRC = 'src';
 var DEST = 'dist';
@@ -35,13 +36,11 @@ gulp.task('js', function() {
     return gulp.src(SRC + '/static/js/**/*.js')
     .pipe(changed(DEST + '/static/js'))
     .pipe(jshint())
-    /*
     .pipe(uglify({
         compress: {
             drop_console: false
         }
     }))
-    */
     .pipe(gulp.dest(DEST + '/static/js'));
 });
 
@@ -54,6 +53,12 @@ gulp.task('imagemin', function() {
     .pipe(changed(DEST + '/static/img'))
     .pipe(imagemin())
     .pipe(gulp.dest(DEST + '/static/img'));
+});
+
+gulp.task('video', function() {
+    return gulp.src(SRC + '/static/video/**/*.{mp4,webm}')
+    .pipe(changed(DEST + '/static/video'))
+    .pipe(gulpCopy(DEST + '/static/video', {prefix: 3}));
 });
 
 gulp.task('html', function() {
@@ -83,6 +88,11 @@ gulp.task('watch', function() {
     });
 
     var img_watcher = gulp.watch(SRC + '/static/img/**/*.{png,gif,jpg,jpeg}', ['imagemin']);
+    img_watcher.on('change', function(event) {
+        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+    });
+
+    var video_watcher = gulp.watch(SRC + '/static/video/**/*.{mp4}', ['video']);
     img_watcher.on('change', function(event) {
         console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     });
@@ -129,7 +139,7 @@ gulp.task('html-release', function() {
     }))
     .pipe(revReplace({manifest: css_manifest}))
     .pipe(revReplace({manifest: js_manifest}))
-    .pipe(replace(/"\/(img|js|css)\//g, '"' + RELEASE_STATIC_SERVER + '$1/'))
+    .pipe(replace(/"\/(img|js|css|video)\//g, '"' + RELEASE_STATIC_SERVER + '$1/'))
     .pipe(gulp.dest(RELEASE + '/html'));
 });
 
@@ -140,4 +150,10 @@ gulp.task('imgmin-release', function() {
     .pipe(gulp.dest(RELEASE + '/static/img'));
 });
 
-gulp.task('release', gulpSequence('css-release', 'js-release', 'html-release', 'imgmin-release'));
+gulp.task('video-release', function() {
+    return gulp.src(SRC + '/static/video/**/*.{mp4,webm}')
+    .pipe(changed(RELEASE + '/static/video'))
+    .pipe(gulpCopy(RELEASE + '/static/video', {prefix: 3}));
+});
+
+gulp.task('release', gulpSequence('css-release', 'js-release', 'html-release', 'imgmin-release', 'video-release'));

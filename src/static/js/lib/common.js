@@ -36,6 +36,7 @@ var Pano = {
     scene: null,
     renderer: null,
     radius: 500,
+    distance: 250,
 
     initVideo: function(url) {
         var video = document.createElement('video');
@@ -65,7 +66,7 @@ var Pano = {
 
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
         this.camera.target = new THREE.Vector3( 0, 0, 0 );
-        this.camera.position.z = 500;
+        this.camera.position.z = this.distance;
 
         this.orbitControls = new THREE.OrbitControls( this.camera );
 
