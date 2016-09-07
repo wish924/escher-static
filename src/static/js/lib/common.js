@@ -17,27 +17,25 @@ var Env = {
     }
 }
 
+var Preload = {
+    add: function(source, callback) {
+        var el = document.createElement("link");
+        el.rel = "prefetch";
+
+        el.addEventListener("load", function() {
+            callback();
+        }, false);
+
+        el.href = source;
+        document.body.appendChild(el);
+    }
+}
+
 var Pano = {
-    onPointerDownPointerX: window.innerWidth / 2,
-    onPointerDownPointerY: window.innerHeight / 2,
-    onPointerDownLon: null,
-    onPointerDownLat: null,
-    lon: 0,
-    onMouseDownLon: 0,
-    lat: 0,
-    onMouseDownLat: 0,
-    phi: 0,
-    theta: 0,
-    distance: 250,
-    onMouseDownMouseX: 0,
-    onMouseDownMouseY: 0,
     camera: null,
     scene: null,
     renderer: null,
-    isUserInteracting: false,
-    isPic: false,
     radius: 500,
-    maxDis: 100000,
 
     initVideo: function(url) {
         var video = document.createElement('video');
@@ -65,10 +63,13 @@ var Pano = {
         var container, mesh;
         container = document.getElementById('container');
 
-        Pano.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-        Pano.camera.target = new THREE.Vector3( 0, 0, 0 );
+        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+        this.camera.target = new THREE.Vector3( 0, 0, 0 );
+        this.camera.position.z = 500;
 
-        Pano.scene = new THREE.Scene();
+        this.orbitControls = new THREE.OrbitControls( this.camera );
+
+        this.scene = new THREE.Scene();
 
         var geometry = new THREE.SphereBufferGeometry( Pano.radius, 60, 60 );
         geometry.scale( -1, 1, 1 );
@@ -77,149 +78,289 @@ var Pano = {
 
         mesh = new THREE.Mesh( geometry, material );
 
-        Pano.scene.add( mesh );
-        Pano.renderer = new THREE.WebGLRenderer();
-        Pano.renderer.setPixelRatio( window.devicePixelRatio );
-        Pano.renderer.setSize( window.innerWidth, window.innerHeight );
-        container.appendChild( Pano.renderer.domElement );
-
-        Pano.bindEvent();
-        Pano.animate();
-    },
-
-    bindEvent: function() {
-        document.addEventListener( 'mousemove', Pano.onDocumentMouseMove, false );
-        document.addEventListener( 'mousewheel', Pano.onDocumentMouseWheel, false );
-        document.addEventListener( 'MozMousePixelScroll', Pano.onDocumentMouseWheel, false);
-
-        document.addEventListener( 'touchstart',  Pano.onDocumentTouchStart, false );
-        document.addEventListener( 'touchmove',  Pano.onDocumentTouchMove, false );
-        document.addEventListener( 'touchend',  Pano.onDocumentTouchEnd, false );
+        this.scene.add( mesh );
+        this.renderer = new THREE.WebGLRenderer();
+        this.renderer.setPixelRatio( window.devicePixelRatio );
+        this.renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( this.renderer.domElement );
 
         window.addEventListener( 'resize', Pano.onWindowResize, false );
+
+        Pano.animate();
     },
 
     animate: function() {
         requestAnimationFrame( Pano.animate );
-        Pano.update();
+        Pano.orbitControls.update();
+        Pano.render();
     },
 
-    update: function() {
-        if ( Pano.isPic && Pano.isUserInteracting === false ) {
-            Pano.lon += 0.1;
-        }
-
-        Pano.lat = Math.max( - 85, Math.min( 85, Pano.lat ) );
-        Pano.phi = THREE.Math.degToRad( 90 - Pano.lat );
-        Pano.theta = THREE.Math.degToRad( Pano.lon );
-
-        if(Pano.distance >= Pano.maxDis){
-            Pano.distance = Pano.maxDis;
-        }
-
-        Pano.camera.position.x = Pano.distance * Math.sin( Pano.phi ) * Math.cos( Pano.theta );
-        Pano.camera.position.y = Pano.distance * Math.cos( Pano.phi );
-        Pano.camera.position.z = Pano.distance * Math.sin( Pano.phi ) * Math.sin( Pano.theta );
-
-        Pano.camera.lookAt( Pano.camera.target );
-        Pano.renderer.render( Pano.scene, Pano.camera );
-    },
-
-    onDocumentMouseMove: function(event) {
-        event.preventDefault();
-        if( isUserInteracting = false ) {
-            Pano.onPointerDownPointerX = event.clientX;
-            Pano.onPointerDownPointerY = event.clientY;
-        }
-
-        Pano.isUserInteracting = true;
-        if ( Pano.isUserInteracting === true ) {
-            Pano.lon = ( Pano.onPointerDownPointerX - event.clientX ) * 0.1 + Pano.lon;
-            Pano.lat = ( event.clientY - Pano.onPointerDownPointerY ) * 0.1 + Pano.lat;
-        }
-
-        Pano.onPointerDownPointerX = event.clientX;
-        Pano.onPointerDownPointerY = event.clientY;
-        Pano.isUserInteracting = false;
+    render: function() {
+        this.renderer.render( this.scene, this.camera );
     },
 
     onWindowResize: function() {
-        windowHalfX = window.innerWidth / 2;
-        windowHalfY = window.innerHeight / 2;
-
         Pano.camera.aspect = window.innerWidth / window.innerHeight;
         Pano.camera.updateProjectionMatrix();
 
         Pano.renderer.setSize( window.innerWidth, window.innerHeight );
-    },
-
-    onDocumentTouchStart: function( event ) {
-        var touch = event.touches[0];
-
-        //event.preventDefault();
-        Pano.isUserInteracting = true;
-
-        Pano.onPointerDownPointerX = touch.pageX;
-        Pano.onPointerDownPointerY = touch.pageY;
-
-        Pano.onPointerDownLon = Pano.lon;
-        Pano.onPointerDownLat = Pano.lat;
-    },
-
-    onDocumentTouchMove: function( event ) {
-        if ( Pano.isUserInteracting === true ) {
-            Pano.lon = ( Pano.onPointerDownPointerX - event.touches[0].pageX ) * 0.1 + Pano.onPointerDownLon;
-            Pano.lat = ( event.touches[0].pageY - Pano.onPointerDownPointerY ) * 0.1 + Pano.onPointerDownLat;
-        }
-    },
-
-    onDocumentTouchEnd: function( event ) {
-        Pano.isUserInteracting = false;
-    },
-
-    onDocumentMouseWheel: function( event ) {
-        var temp = 500 / Math.sqrt(
-            Math.pow(
-                Math.tan(THREE.Math.degToRad(Pano.camera.fov / 2)), 2) * (1 + Math.pow(window.innerHeight / window.innerWidth , 2)
-            )
-        ) - 6; 
-
-        if ( event.wheelDeltaY ) {
-            // Opera / Explorer 9
-            Pano.calDistance(event.wheelDeltaY, temp)
-        } else if ( event.wheelDelta ) {
-            // Firefox
-            Pano.calDistance(event.wheelDelta, temp)
-        } else if ( event.detail ) {
-            Pano.calDistance(event.detail, temp)
-        }
-    },
-
-    calDistance: function(delta, temp) {
-        if(Pano.distance < temp && Pano.distance + Pano.radius < Pano.camera.far && Pano.distance > Pano.radius / 10){
-            Pano.distance -= delta * 0.05;
-        } else if(Pano.distance >= temp) {
-            if(delta > 0){
-                Pano.distance -= delta * 0.05;
-            }
-        } else {
-            if(event.wheelDeltaY < 0){
-                Pano.distance -= event.wheelDeltaY * 0.05;
-            }
-        }
     }
 }
 
-var Preload = {
-    add: function(source, callback) {
-        var el = document.createElement("link");
-        el.rel = "prefetch";
+THREE.OrbitControls = function ( object ) {
+    this.object = object;
 
-        el.addEventListener("load", function() {
-            callback();
-        }, false);
+    this.target = new THREE.Vector3();
 
-        el.href = source;
-        document.body.appendChild(el);
+    // How far you can orbit vertically, upper and lower limits.
+    // Range is 0 to Math.PI radians.
+    this.minPolarAngle = 0; // radians
+    this.maxPolarAngle = Math.PI; // radians
+
+    // How far you can orbit horizontally, upper and lower limits.
+    // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+    this.minAzimuthAngle = - Infinity; // radians
+    this.maxAzimuthAngle = Infinity; // radians
+
+    // Set to true to enable damping (inertia)
+    // If damping is enabled, you must call controls.update() in your animation loop
+    this.enableDamping = false;
+    this.dampingFactor = 0.25;
+
+    this.rotateSpeed = 0.3;
+
+    this.deviceOrientation = {};
+    this.screenOrientation = 0;
+
+    var scope = this;
+
+    var changeEvent = { type: 'change' };
+    var startEvent = { type: 'start' };
+    var endEvent = { type: 'end' };
+
+    var EPS = 0.000001;
+
+    // current position in spherical coordinates
+    var spherical = new THREE.Spherical();
+    var sphericalDelta = new THREE.Spherical();
+
+    var rotateStart = new THREE.Vector2();
+    var rotateEnd = new THREE.Vector2();
+    var rotateDelta = new THREE.Vector2();
+
+    var setObjectQuaternion = function () {
+        var zee = new THREE.Vector3( 0, 0, 1 );
+        var euler = new THREE.Euler();
+        var q0 = new THREE.Quaternion();
+        // - PI/2 around the x-axis
+        var q1 = new THREE.Quaternion(  - Math.sqrt( 0.5 ), 0, 0,  Math.sqrt( 0.5 ) );
+
+        //beta=beta-180;
+        return function ( quaternion, alpha, beta, gamma, orient ) {
+            // 'ZXY' for the device, but 'YXZ' for us
+            euler.set( beta, alpha, - gamma, 'YXZ' );
+            // orient the device
+            quaternion.setFromEuler( euler );
+            // camera looks out the back of the device, not the top
+            quaternion.multiply( q1 );
+            // adjust for screen orientation
+            quaternion.multiply( q0.setFromAxisAngle( zee, - orient ) );
+        }
+    }();
+
+    // this method is exposed, but perhaps it would be better if we can make it private...
+    this.update = function() {
+        var offset = new THREE.Vector3();
+
+        // so camera.up is the orbit axis
+        var quat = new THREE.Quaternion().setFromUnitVectors( object.up, new THREE.Vector3( 0, 1, 0 ) );
+        var quatInverse = quat.clone().inverse();
+
+        var lastPosition = new THREE.Vector3();
+        var lastQuaternion = new THREE.Quaternion();
+        var lastGamma = 0, lastBeta = 0;
+
+        return function update (param) {
+            param = param || {};
+
+            var alpha = scope.deviceOrientation.alpha ? THREE.Math.degToRad(scope.deviceOrientation.alpha) : 0; // Z
+            var beta = scope.deviceOrientation.beta ? THREE.Math.degToRad(scope.deviceOrientation.beta) : 0; // X'
+            var gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad(scope.deviceOrientation.gamma) : 0; // Y''
+            var orient = scope.screenOrientation ? THREE.Math.degToRad(scope.screenOrientation) : 0; // O
+
+            var currentQ = new THREE.Quaternion().copy(scope.object.quaternion);
+
+            setObjectQuaternion(currentQ, alpha, beta, gamma, orient);
+            var currentAngle = Quat2Angle(currentQ.x, currentQ.y, currentQ.z, currentQ.w);
+            // currentAngle.z = Left-right
+            // currentAngle.y = Up-down
+            if(!param.init) {
+                rotateLeft((lastGamma - currentAngle.z));
+                rotateUp((lastBeta - currentAngle.y));
+            }
+
+            lastBeta = currentAngle.y;
+            lastGamma = currentAngle.z;
+
+            var position = scope.object.position;
+
+            offset.copy( position ).sub( scope.target );
+
+            // rotate offset to "y-axis-is-up" space
+            offset.applyQuaternion( quat );
+
+            // angle from z-axis around y-axis
+            spherical.setFromVector3( offset );
+
+            spherical.theta += sphericalDelta.theta;
+            spherical.phi += sphericalDelta.phi;
+
+            // restrict theta to be between desired limits
+            spherical.theta = Math.max( scope.minAzimuthAngle, Math.min( scope.maxAzimuthAngle, spherical.theta ) );
+
+            // restrict phi to be between desired limits
+            spherical.phi = Math.max( scope.minPolarAngle, Math.min( scope.maxPolarAngle, spherical.phi ) );
+
+            spherical.makeSafe();
+            offset.setFromSpherical( spherical );
+
+            // rotate offset back to "camera-up-vector-is-up" space
+            offset.applyQuaternion( quatInverse );
+            position.copy( scope.target ).add( offset );
+
+            scope.object.lookAt( scope.target );
+
+            if ( scope.enableDamping === true ) {
+                sphericalDelta.theta *= ( 1 - scope.dampingFactor );
+                sphericalDelta.phi *= ( 1 - scope.dampingFactor );
+            } else {
+                sphericalDelta.set( 0, 0, 0 );
+            }
+
+            // update condition is:
+            // min(camera displacement, camera rotation in radians)^2 > EPS
+            // using small-angle approximation cos(x/2) = 1 - x^2 / 8
+
+            if ( lastPosition.distanceToSquared( scope.object.position ) > EPS ||
+                    8 * ( 1 - lastQuaternion.dot( scope.object.quaternion ) ) > EPS ) {
+
+                        scope.dispatchEvent( changeEvent );
+
+                        lastPosition.copy( scope.object.position );
+                        lastQuaternion.copy( scope.object.quaternion );
+
+                        return true;
+                    }
+
+            return false;
+        };
+    }();
+
+    function rotateLeft( angle ) {
+        sphericalDelta.theta -= angle;
     }
+
+    function rotateUp( angle ) {
+        sphericalDelta.phi -= angle;
+    }
+
+    function Quat2Angle( x, y, z, w ) {
+        var pitch, roll, yaw;
+
+        var test = x * y + z * w;
+        if (test > 0.499) { // singularity at north pole
+            yaw = 2 * Math.atan2(x, w);
+            pitch = Math.PI / 2;
+            roll = 0;
+
+            var euler = new THREE.Vector3( pitch, roll, yaw);
+            return euler;
+        }
+
+        if (test < -0.499) { // singularity at south pole
+            yaw = -2 * Math.atan2(x, w);
+            pitch = -Math.PI / 2;
+            roll = 0;
+            var euler = new THREE.Vector3( pitch, roll, yaw);
+            return euler;
+        }
+
+        var sqx = x * x;
+        var sqy = y * y;
+        var sqz = z * z;
+
+        yaw = Math.atan2(2 * y * w - 2 * x * z, 1 - 2 * sqy - 2 * sqz);
+        pitch = Math.asin(2 * test);
+        roll = Math.atan2(2 * x * w - 2 * y * z, 1 - 2 * sqx - 2 * sqz);
+
+        var euler = new THREE.Vector3( pitch, roll, yaw);
+        return euler;
+    }
+
+    function mousemove( event ) {
+        rotateEnd.set( event.clientX, event.clientY );
+        rotateDelta.subVectors( rotateEnd, rotateStart );
+
+        // rotating across whole screen goes 360 degrees around
+        rotateLeft( 4 * Math.PI * rotateDelta.x / window.innerWidth * scope.rotateSpeed );
+
+        // rotating up and down along whole screen attempts to go 360, but limited to 180
+        rotateUp( 2 * Math.PI * rotateDelta.y / window.innerHeight * scope.rotateSpeed );
+
+        rotateStart.copy( rotateEnd );
+    }
+
+    function touchstart( event ) {
+        //console.log( 'handleTouchStartRotate' );
+        rotateStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+    }
+
+    function touchmove( event ) {
+        //console.log( 'handleTouchMoveRotate' );
+
+        event.preventDefault();
+
+        rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+        rotateDelta.subVectors( rotateEnd, rotateStart );
+
+        // rotating across whole screen goes 360 degrees around
+        rotateLeft( 2 * Math.PI * rotateDelta.x / window.innerWidth * scope.rotateSpeed );
+
+        // rotating up and down along whole screen attempts to go 360, but limited to 180
+        rotateUp( 2 * Math.PI * rotateDelta.y / window.innerHeight * scope.rotateSpeed );
+
+        rotateStart.copy( rotateEnd );
+
+        scope.update();
+    }
+
+    function touchend( event ) {
+        //console.log( 'handleTouchEnd' );
+    }
+
+    function deviceorientation( event ) {
+        scope.deviceOrientation = event;
+    }
+
+    function orientationchange( event ) {
+        scope.screenOrientation = window.orientation || 0;
+    }
+
+    window.addEventListener( 'orientationchange', orientationchange, false );
+    window.addEventListener( 'deviceorientation', deviceorientation, false );
+
+    document.addEventListener( 'mousemove', mousemove, false );
+    document.addEventListener( 'touchstart', touchstart, false );
+    document.addEventListener( 'touchend', touchend, false );
+    document.addEventListener( 'touchmove', touchmove, false );
+
+    // set mousemove base point is window center
+    rotateStart.set( window.innerWidth / 2, window.innerHeight / 2 );
+
+    // force an update at start
+    rotateLeft(THREE.Math.degToRad( -90 ));
+    this.update({init: true});
 }
+
+THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;

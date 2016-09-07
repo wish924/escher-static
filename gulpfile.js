@@ -35,11 +35,13 @@ gulp.task('js', function() {
     return gulp.src(SRC + '/static/js/**/*.js')
     .pipe(changed(DEST + '/static/js'))
     .pipe(jshint())
+    /*
     .pipe(uglify({
         compress: {
             drop_console: false
         }
     }))
+    */
     .pipe(gulp.dest(DEST + '/static/js'));
 });
 

@@ -12,7 +12,7 @@ $(function() {
         if(Env.isMobile()) {
             $("#loading").hide();
             $("body").removeClass("ms-controller");
-            Pano.initPic("http://obfgoys2n.bkt.clouddn.com/environment.jpg");
+            Pano.initPic("/img/wap/mountain.jpg");
         } else {
             var video_src = "http://obfgoys2n.bkt.clouddn.com/xiaomi_VR_preview_727_2.mp4";
             Preload.add(video_src, function() {
