@@ -62,7 +62,7 @@ var Pano = {
 
     init: function(texture) {
         var container, mesh;
-        container = document.getElementById('container');
+        container = document.getElementById('scene');
 
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
         this.camera.target = new THREE.Vector3( 0, 0, 0 );

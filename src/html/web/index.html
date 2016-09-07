@@ -8,46 +8,42 @@
         <link href="/css/web/index.css" rel="stylesheet">
     </head>
 
-    <body class="ms-controller">
-        <div id="container" class="container">
-            <div id="loading">
-                <div class="pacman">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+    <body>
+        <div id="container" class="ms-controller">
+            <div id="header">
+                <div id="logo">
+                    <img src="/img/web/logo-small.png" />
+                    <span>871VR</span>
                 </div>
-                <div class="tip">
-                    什么时候能吃完...
-                </div>
-            </div>
-            <div class="left-sidebar">
-                <div class="logo">
-                    <img src="/img/logo.png">
-                </div><!-- .logo -->
 
-                <!--ul class="menu">
-                    <li><a href="/">首页</a></li>
-                    <li><a href="/app.html">App下载</a></li>
-                    <li><a href="/about.html">关于我们</a></li>
-                    <li><a href="/join.html">加入我们</a></li>
-                </ul-->
-
-                <div class="footer">
-                    <p>&copy; 2016 EscherVR</p>
+                <div id="menu">
+                    <ul>
+                        <li class="active"><a href="/">首页</a></li>
+                        <li><a href="#">产品及服务</a></li>
+                        <li><a href="#">案例故事</a></li>
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="content">
-                <h1>871VR</h1>
-                <p>one life &sdot; infinity live</p>
-                <p>
-                    <a href="#">下载Android版</a>
-                    <a href="https://appsto.re/cn/U8q_cb.i">下载iOS版</a>
-                </p>
+            <div id="main">
+                <div id="intro">
+                    对记忆深处的寻访，对无限宇宙的狂想<br />
+                    我们展现给你不可思议的景像
+                </div>
+                <div id="download">
+                    <a href="#">点击下载App</a>
+                </div>
+            </div>
+
+            <div id="footer">
+                埃舍尔科技<br /> 
+                &copy;2016 EscherVR
             </div>
         </div>
+
+        <div id="scene"></div>
     </body>
     <script src="/js/lib/three.js"></script>
     <script src="/js/lib/zepto.js"></script>
