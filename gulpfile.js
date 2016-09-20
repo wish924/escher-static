@@ -20,7 +20,7 @@ var DEST = 'dist';
 var STATIC_SERVER = '/';
 
 var RELEASE = 'release';
-var RELEASE_STATIC_SERVER = '';
+var RELEASE_STATIC_SERVER = 'http://static.eschervr.com/';
 
 gulp.task('less', function() {
     return gulp.src([SRC + '/static/css/**/*.less', '!' + SRC + '/static/css/**/includes/**'])

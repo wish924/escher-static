@@ -1,1 +1,0 @@
-$(function(){if(Env.isMobile()||$("body").removeClass("ms-controller").vegas({slides:[{src:"/img/web/bg.jpg"}]}),Env.isIE())$("#loading").hide();else if(Env.isMobile())$("#loading").hide(),$("body").removeClass("ms-controller"),Pano.initPic("/img/wap/mountain.jpg");else{var i="/video/web/intro-1.mp4";Preload.add(i,function(){$("#loading").hide(),Pano.initVideo(i)})}});

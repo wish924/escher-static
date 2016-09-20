@@ -1,36 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>埃舍尔科技 - one life &sdot; infinity live </title>
-        <link href="/css/web/index.css" rel="stylesheet">
-    </head>
+@@include('includes/header.html', {
+    "css": "/css/web/index.css"
+})
 
     <body>
         <div id="container" class="ms-controller">
             <div id="header">
-                <div id="logo">
-                    <img src="/img/web/logo-small.png" />
-                    <span>871VR</span>
-                </div>
-
-                <div id="menu">
-                    <ul>
-                        <li class="active"><a href="/">首页</a></li>
-                        <li><a href="#">产品及服务</a></li>
-                        <li><a href="#">案例故事</a></li>
-                        <li><a href="#">团队介绍</a></li>
-                        <li><a href="#">加入我们</a></li>
-                    </ul>
-                </div>
+                @@include("includes/menu.html", {"active": "index"})
             </div>
 
             <div id="main">
+                <div id="loading">
+                    <div class="pacman">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="tip">
+                        Loading...
+                    </div>
+                </div>
                 <div id="intro">
-                    对记忆深处的寻访，对无限宇宙的狂想<br />
-                    我们展现给你不可思议的景像
+                    从森林漫步到雪山，从海洋游览到大地<br />我们带你去世界任何一个地方
                 </div>
                 <div id="download">
                     <a href="#">点击下载App</a>
@@ -46,8 +38,8 @@
         <div id="scene"></div>
     </body>
     <script src="/js/lib/three.js"></script>
-    <script src="/js/lib/zepto.js"></script>
+    @@include('includes/global_js.html')
     <script src="/js/lib/vegas.js"></script>
-    <script src="/js/lib/common.js"></script>
     <script src="/js/web/index.js"></script>
-</html>
+
+@@include('includes/footer.html')

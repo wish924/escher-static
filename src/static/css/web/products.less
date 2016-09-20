@@ -1,0 +1,111 @@
+@import "../includes/global-pc.less";
+
+body {
+    background-color: #EFEFEF;
+}
+
+#container {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+
+    .header("/img/web/products-bg.jpg");
+
+    #main {
+        background-color: @white;
+
+        p {
+            font-size: @font-size-large;
+            color: @gray;
+        }
+
+        .intro {
+            width: 780px;
+            margin: 30px auto;
+
+            li {
+                margin-bottom: 15px;
+                font-size: @font-size-xl;
+                list-style: initial;
+            }
+        }
+
+        h3 {
+            font-size: 30px;
+            color: @black-light;
+            padding-top: 70px;
+            text-align: center;
+
+            .icon {
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                background-image: url(@web-common-bg-url);
+                vertical-align: -5px;
+                margin-right: 20px;
+
+                &.business {
+                    background-position: 0 -300px;
+                }
+
+                &.products {
+                    background-position: 0 -260px;
+                }
+            }
+        }
+
+        .list {
+            margin: 40px auto 0;
+            padding-bottom: 100px;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            .one {
+                width: 30%;
+                margin-bottom: 60px;
+            }
+        }
+    }
+
+    #footer {
+        margin: 20px 5% 20px;
+        color: @gray;
+        text-align: right;
+        .clearfix();
+    }
+}
+
+@media (max-width: 767px) {
+    #container {
+        width: 100%;
+
+        #header {
+            height: 200px;
+            background-size: cover;
+        }
+
+        #main {
+            h3 {
+                font-size: @font-size-xl;
+            }
+
+            .intro {
+                width: 80%;
+
+                li {
+                    font-size: @font-size-base;
+                }
+            }
+
+            .list {
+                .one {
+                    width: 48%;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+}

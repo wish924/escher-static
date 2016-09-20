@@ -1,0 +1,135 @@
+@import "../includes/global-pc.less";
+
+body {
+    background-color: #EFEFEF;
+}
+
+#container {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+
+    .header("/img/web/about-bg.jpg");
+
+    #main {
+        background-color: @white;
+
+        p {
+            font-size: @font-size-large;
+            color: @gray;
+        }
+
+        .intro {
+            width: 67%;
+            margin: 20px auto;
+            line-height: 35px;
+        }
+
+        h3 {
+            font-size: 30px;
+            color: @black-light;
+            padding-top: 70px;
+            text-align: center;
+
+            .icon {
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                background-image: url(@web-common-bg-url);
+                vertical-align: -5px;
+                margin-right: 20px;
+
+                &.company {
+                    background-position: 0 -185px;
+                }
+
+                &.team {
+                    background-position: 0 -225px;
+                }
+            }
+        }
+
+        .partner {
+            margin: 140px auto 0;
+            padding-bottom: 100px;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            .box {
+                width: 30%;
+                height: 500px;
+                border: 1px solid @gray-line;
+                border-radius: 6px;
+                text-align: center;
+
+                .photo {
+                    width: 200px;
+                    height: 200px;
+                    margin: -80px auto 40px;
+                    .clearfix();
+
+                    img {
+                        border-radius: 100px;
+                    }
+                }
+
+                .name {
+                    color: @gray-dark;
+                    font-size: @font-size-xl;
+                    margin-bottom: 10px;
+                }
+
+                .title, .desc {
+                    font-size: @font-size-large;
+                }
+
+                .desc {
+                    width: 90%;
+                    line-height: 30px;
+                    margin: 30px auto 0;
+                }
+            }
+        }
+    }
+
+    #footer {
+        margin: 20px 5% 20px;
+        color: @gray;
+        text-align: right;
+        .clearfix();
+    }
+}
+
+@media (max-width: 767px) {
+    #container {
+        width: 100%;
+
+        #header {
+            height: 200px;
+            background-size: cover;
+        }
+
+        #main {
+            h3 {
+                font-size: @font-size-xl;
+            }
+
+            .intro {
+                width: 90%;
+            }
+
+            .partner {
+                display: block;
+                padding-bottom: 30px;
+
+                .box {
+                    width: 90%;
+                    margin: 0 auto 120px;
+                }
+            }
+        }
+    }
+}

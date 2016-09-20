@@ -1,0 +1,49 @@
+@@include('includes/header.html', {
+    "title": "公司介绍",
+    "css": "/css/web/about.css"
+})
+
+    <body>
+        <div id="container">
+            <div id="header">
+                <div class="inner">
+                    @@include("includes/menu.html", {"active": "about"})
+                </div>
+            </div>
+
+            <div id="main">
+                <h3><span class="icon company"></span>公司介绍</h3>
+                <p class="intro">埃舍尔科技是一家专注于虚拟现实多形态、多场景内容生成的创新型公司，并提供基于虚拟现实技术的多行业解决方案。公司拥有计算机图形学、多媒体交互技术、创意设计、数据分析等专业人才。公司总部位于昆明，并设立北京、成都、深圳三个分部和泰国制作基地。我们的目标是提供高品质的虚拟现实内容，让用户实现“一次人生、无限次生活”的梦想。</p>
+                <h3><span class="icon team"></span>管理团队</h3>
+                <div class="partner">
+                    <div class="box">
+                        <div class="photo"><img src="/img/web/yangjie.jpg" /></div>
+                        <div class="name">杨杰</div>
+                        <div class="title">联合创始人，CEO</div>
+                        <div class="desc">上海交大毕业，设计硕士。在设计广告、三维动画、虚拟现实及增强现实领域有超过10年的创业经验，精通大型创意类项目管理及实施，成功创立云南广告界龙头企业盛策同辉，并获省长创业奖。</div>
+                    </div>
+
+                    <div class="box">
+                        <div class="photo"><img src="/img/web/lifeng.jpg" /></div>
+                        <div class="name">李丰</div>
+                        <div class="title">联合创始人，CPO</div>
+                        <div class="desc">清华大学毕业连环创业者及天使投资人，在互联网社区、游戏、动画、智能硬件、芯片等领域有多年创业经验。在影视、动画、游戏、硬件、互联网、VR等多个领域都有制作经验，具有极强的跨界知识学习能力。联合创立的多家企业获得过小米，经纬紫牛等多家VC的投资。</div>
+                    </div>
+
+                    <div class="box">
+                        <div class="photo"><img src="/img/web/huangxiang.jpg" /></div>
+                        <div class="name">黄翔</div>
+                        <div class="title">联合创始人，CTO</div>
+                        <div class="desc">丹麦深造设计回国，在北大软件学院读硕士时退学创业。连环创业者，在游戏、动画、移动互联网等领域有多个项目成功经验，曾获得Macworld Asia最佳应用大奖，精通图形学、算法等多个领域。自行开发的游戏图形及动作引擎得到成功运用，目前已经获得商业成功。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer">
+                埃舍尔科技 &copy;2016 EscherVR
+            </div>
+        </div>
+    </body>
+    @@include('includes/global_js.html')
+
+@@include('includes/footer.html')

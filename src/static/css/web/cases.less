@@ -1,0 +1,79 @@
+@import "../includes/global-pc.less";
+
+body {
+    background-color: #EFEFEF;
+}
+
+#container {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+
+    .header("/img/web/cases-bg.jpg");
+
+    #main {
+        background-color: @white;
+
+        p {
+            font-size: @font-size-xl;
+            text-align: center;
+            line-height: 60px;
+            color: @black-light;
+        }
+
+        h3 {
+            font-size: 30px;
+            color: @black-light;
+            padding-top: 70px;
+            text-align: center;
+
+            .icon {
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                background-image: url(@web-common-bg-url);
+                vertical-align: -5px;
+                margin-right: 20px;
+                background-position: 0 -150px;
+            }
+        }
+
+        div {
+            width: 95%;
+            margin: auto;
+            padding-bottom: 40px;
+        }
+    }
+
+    #footer {
+        margin: 20px 5% 20px;
+        color: @gray;
+        text-align: right;
+        .clearfix();
+    }
+}
+
+@media (max-width: 767px) {
+    #container {
+        width: 100%;
+
+        #header {
+            height: 200px;
+            background-size: cover;
+        }
+
+        #main {
+            h3 {
+                font-size: @font-size-xl;
+            }
+
+            p {
+                font-size: @font-size-large;
+            }
+
+            div {
+                padding-bottom: 20px;
+            }
+        }
+    }
+}
