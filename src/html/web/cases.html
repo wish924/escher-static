@@ -14,10 +14,10 @@
             <div id="main">
                 <h3><span class="icon"></span>典型案例</h3>
                 <p>与云南城投集团合作制作香格里拉VR全景展示片</p>
-                <div><img src="/img/web/cases-bg.jpg" /></div>
+                <div class="demo" data-src="/img/web/demo1.jpg"></div>
 
                 <p>与云南城投集团合作制作香格里拉VR全景展示片</p>
-                <div><img src="/img/web/cases-bg.jpg" /></div>
+                <div class="demo" data-src="/img/web/xianggelila.jpg"></div>
             </div>
 
             <div id="footer">
@@ -25,6 +25,16 @@
             </div>
         </div>
     </body>
+    <script src="/js/lib/three.js"></script>
     @@include('includes/global_js.html')
+    <script>
+        $(function() {
+            var el = [];
+            $('.demo').each(function(i, o) {
+                el[i] = new Pano(o);
+                el[i].initPic($(o).data('src'));
+            });
+        });
+    </script>
 
 @@include('includes/footer.html')

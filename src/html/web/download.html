@@ -1,0 +1,18 @@
+@@include('includes/header.html', {
+    "title": "下载App跳转中.."
+})
+
+    <body>
+    </body>
+    @@include('includes/global_js.html')
+    <script>
+        $(function() {
+            if(Env.isiOS()) {
+                location.href = 'https://itunes.apple.com/cn/app/871vr/id1123880750?mt=8';
+                return;
+            } else {
+            }
+        });
+    </script>
+
+@@include('includes/footer.html')

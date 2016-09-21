@@ -31,16 +31,30 @@ body {
 
     #main {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 10%;
-        margin-top: -120px;
+        margin-top: -180px;
         width: 80%;
         color: @white;
 
         #intro {
+            position: relative;
+            display: none;
+            height: 300px;
             font-size: @font-size-h1;
             text-align: center;
-            line-height: 1.8;
+            line-height: 2.4;
+
+            p {
+                .opacity(0);
+                transform: translate3d(0, 100px, 0);
+                transition: all 4s;
+
+                &.show-up {
+                    .opacity(1);
+                    transform: translate3d(0, 0, 0);
+                }
+            }
         }
 
         #download {
@@ -50,9 +64,11 @@ body {
             margin: 80px auto 0;
 
             a {
+                position: relative;
                 color: @white;
                 display: block;
                 font-size: @font-size-larger;
+                padding-left: 32px;
                 text-align: center;
                 border: 2px solid @white;
                 border-radius: 30px;
@@ -60,10 +76,52 @@ body {
                 background-color: rgba(255, 255, 255, 0.2);
                 transition: all 0.4s;
 
+                &:before{
+                    content: "";
+                    display:inline-block;
+                    position:absolute;
+                    top:50%;
+                    left:30px;
+                    width:22px;
+                    height:22px;
+                    margin-top:-11px;
+                    background-image:url(@web-common-bg-url);
+                    background-position:0 -60px;
+                }
+
                 &:hover {
                     color: @gray;
                     background-color: @white;
+                    box-shadow: 0 2px 4px 0 @black;
+
+                    &:before {
+                        background-position:0 -85px;
+                    }
                 }
+            }
+        }
+
+        #qrcode {
+            display: none;
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            margin-left: -125px;
+            text-align: center;
+            width: 250px;
+            height: 330px;
+            background-color: @white;
+            z-index: 3;
+
+            img {
+                margin-top: 20px;
+                width: 210px;
+                height: 210px;
+            }
+
+            p {
+                margin-top: 40px;
+                color: @gray-dark;
             }
         }
     }
@@ -91,14 +149,6 @@ body {
 
 @media (max-width: 767px) {
     #container {
-        #header {
-            #menu {
-                ul {
-                    display: none;
-                }
-            }
-        }
-
         #main {
             left: 8%;
             width: 84%;
@@ -107,6 +157,19 @@ body {
                 font-size: @font-size-xl;
             }
         }
+    }
+}
+
+#loading{
+    position: relative;
+    top: 0;
+    left: 50%;
+    margin-left: -30px;
+    margin-top: 150px;
+    height: 150px;
+
+    .tip{
+        line-height:3;
     }
 }
 

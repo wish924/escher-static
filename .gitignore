@@ -26,8 +26,5 @@ Thumbs.db
 
 # Folders to ignore
 node_modules
-dist/html/*
-dist/static/js/*
-dist/static/img/*
-dist/static/css/*
+dist
 
