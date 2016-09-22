@@ -31,7 +31,7 @@ body {
 
     #main {
         position: absolute;
-        top: 40%;
+        top: 45%;
         left: 10%;
         margin-top: -180px;
         width: 80%;
@@ -44,8 +44,10 @@ body {
             font-size: @font-size-h1;
             text-align: center;
             line-height: 2.4;
+            letter-spacing: 8px;
 
             p {
+                text-shadow: 0 1px 1px @black;
                 .opacity(0);
                 transform: translate3d(0, 100px, 0);
                 transition: all 4s;
@@ -75,6 +77,7 @@ body {
                 box-sizing: border-box;
                 background-color: rgba(255, 255, 255, 0.2);
                 transition: all 0.4s;
+                box-shadow: 0 2px 2px 0 @black;
 
                 &:before{
                     content: "";
@@ -92,7 +95,6 @@ body {
                 &:hover {
                     color: @gray;
                     background-color: @white;
-                    box-shadow: 0 2px 4px 0 @black;
 
                     &:before {
                         background-position:0 -85px;
@@ -104,7 +106,7 @@ body {
         #qrcode {
             display: none;
             position: absolute;
-            top: -150px;
+            top: 0;
             left: 50%;
             margin-left: -125px;
             text-align: center;
@@ -152,9 +154,12 @@ body {
         #main {
             left: 8%;
             width: 84%;
+            margin-top: -100px;
 
             #intro {
+                height: auto;
                 font-size: @font-size-xl;
+                letter-spacing: 2px;
             }
         }
     }

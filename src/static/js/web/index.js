@@ -37,6 +37,7 @@ $(function() {
         }
     } else {
         $("#loading").hide();
+        $("#intro").show();
     }
 
     $('#download a').mouseover(function(e) {

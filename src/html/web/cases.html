@@ -31,8 +31,12 @@
         $(function() {
             var el = [];
             $('.demo').each(function(i, o) {
-                el[i] = new Pano(o);
-                el[i].initPic($(o).data('src'));
+                if(!Env.isIE()) {
+                    el[i] = new Pano(o);
+                    el[i].initPic($(o).data('src'));
+                } else {
+                    $(o).append('<img src="' + $(o).data('src') + '" />');
+                }
             });
         });
     </script>
