@@ -73,11 +73,11 @@
             $(function() {
                 var el = [];
                 $('.demo').each(function(i, o) {
-                    if(!Env.isIE()) {
-                        el[i] = new Pano(o);
-                        el[i].initPic($(o).data('src'));
+                    if(Env.isIE() && Env.ieVersion() < 11) {
+                        $(o).append('<img src="' + StaticFile.getUrl($(o).data('src')) + '" />');
                     } else {
-                        $(o).append('<img src="' + $(o).data('src') + '" />');
+                        el[i] = new Pano(o);
+                        el[i].initPic(StaticFile.getUrl($(o).data('src')));
                     }
                 });
             });

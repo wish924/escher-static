@@ -10,7 +10,7 @@ $(function() {
         });
     }
 
-    if(!Env.isIE() || true) {
+    if(!Env.isIE() || Env.ieVersion() >= 11) {
         if(Env.isMobile()) {
             $("#loading").hide();
             $("#intro").show();
