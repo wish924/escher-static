@@ -13,32 +13,41 @@
 
             <div id="main">
                 <h3><span class="icon"></span>典型案例</h3>
-                <p>与云南城投集团合作制作香格里拉VR全景展示片</p>
-                <div class="demo" data-src="/img/web/demo1.jpg"></div>
 
-                <p>与云南城投集团合作制作香格里拉VR全景展示片</p>
+                <p>《香格里拉》 —— 漫漫人生旅途，乘舟抵达彼岸——这里，就是詹姆斯希尔顿笔下的人间天堂。</p>
                 <div class="demo" data-src="/img/web/xianggelila.jpg"></div>
+
+                <p>《隐藏的森林》 —— 杨丽萍指定服装设计，云南本土原创，80后，有故事的设计师，让我们记住你：石头。</p>
+                <div class="demo" data-src="/img/web/yincangdesenlin.jpg"></div>
+
+                <p>《彩云之南》 —— 我们热爱镜头下的彩云之南：色彩幻化，霓云流动，资源丰富，民族多情。</p>
+                <div class="demo" data-src="/img/web/yunnan.jpg"></div>
+
+                <p>《昆明的一天》 —— 埃舍尔团队试图在穿梭人流和扰动光线里，捕捉属于时间的律动，昆明的晨昏，和美丽的青春。</p>
+                <div class="demo" data-src="/img/web/kunmingdeyitian.jpg"></div>
+
+                <p>《开饭了》 —— 在动画的世界里带你用不一样的视角领略云南美食的诱惑。</p>
+                <div class="demo" data-src="/img/web/kaifanle.jpg"></div>
             </div>
 
             <div id="footer">
                 埃舍尔科技 &copy;2016 EscherVR
             </div>
         </div>
-    </body>
-    <script src="/js/lib/three.js"></script>
-    @@include('includes/global_js.html')
-    <script>
-        $(function() {
-            var el = [];
-            $('.demo').each(function(i, o) {
-                if(!Env.isIE()) {
-                    el[i] = new Pano(o);
-                    el[i].initPic($(o).data('src'));
-                } else {
-                    $(o).append('<img src="' + $(o).data('src') + '" />');
-                }
+        <script src="/js/lib/three.js"></script>
+        @@include('includes/global_js.html')
+        <script>
+            $(function() {
+                var el = [];
+                $('.demo').each(function(i, o) {
+                    if(!Env.isIE()) {
+                        el[i] = new Pano(o);
+                        el[i].initPic($(o).data('src'));
+                    } else {
+                        $(o).append('<img src="' + $(o).data('src') + '" />');
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 
 @@include('includes/footer.html')

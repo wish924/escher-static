@@ -1,13 +1,43 @@
-@@include('includes/header.html', {
-    "title": "公司介绍",
-    "css": "/css/web/about.css"
-})
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>公司介绍 - 埃舍尔科技</title>
+        
+        
+        <link rel="shortcut icon" type="image/x-icon" href="http://static.eschervr.com/img/web/favicon.ico">
+        
+        <link href="http://static.eschervr.com/css/web/about-bc5d35a35d.css" rel="stylesheet">
+        
+    </head>
+
+
 
     <body>
         <div id="container">
             <div id="header">
                 <div class="inner">
-                    @@include("includes/menu.html", {"active": "about"})
+                    
+                    <div id="logo">
+                        <img src="http://static.eschervr.com/img/web/logo-small.png" />
+                        <span>埃舍尔科技</span>
+                    </div>
+
+                    <div id="menu-icon" class="toggle"></div>
+
+                    <div id="menu">
+                        <ul>
+                            <li><a href="/">首页</a></li>
+                            <li class="active"><a href="/about.html">公司介绍</a></li>
+                            <li><a href="/products.html">产品及服务</a></li>
+                            <li><a href="/cases.html">案例故事</a></li>
+                            <li><a href="/join.html">加入我们</a></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
 
@@ -17,21 +47,21 @@
                 <h3><span class="icon team"></span>管理团队</h3>
                 <div class="partner">
                     <div class="box">
-                        <div class="photo"><img src="/img/web/yangjie.jpg" /></div>
+                        <div class="photo"><img src="http://static.eschervr.com/img/web/yangjie.jpg" /></div>
                         <div class="name">杨杰</div>
                         <div class="title">联合创始人，CEO</div>
                         <div class="desc">上海交大毕业，设计硕士。在设计广告、三维动画、虚拟现实及增强现实领域有超过10年的创业经验，精通大型创意类项目管理及实施，成功创立云南广告界龙头企业盛策同辉，并获省长创业奖。</div>
                     </div>
 
                     <div class="box">
-                        <div class="photo"><img src="/img/web/lifeng.jpg" /></div>
+                        <div class="photo"><img src="http://static.eschervr.com/img/web/lifeng.jpg" /></div>
                         <div class="name">李丰</div>
                         <div class="title">联合创始人，CPO</div>
                         <div class="desc">清华大学毕业连环创业者及天使投资人，在互联网社区、游戏、动画、智能硬件、芯片等领域有多年创业经验。在影视、动画、游戏、硬件、互联网、VR等多个领域都有制作经验，具有极强的跨界知识学习能力。联合创立的多家企业获得过小米，经纬紫牛等多家VC的投资。</div>
                     </div>
 
                     <div class="box">
-                        <div class="photo"><img src="/img/web/huangxiang.jpg" /></div>
+                        <div class="photo"><img src="http://static.eschervr.com/img/web/huangxiang.jpg" /></div>
                         <div class="name">黄翔</div>
                         <div class="title">联合创始人，CTO</div>
                         <div class="desc">丹麦深造设计回国，在北大软件学院读硕士时退学创业。连环创业者，在游戏、动画、移动互联网等领域有多个项目成功经验，曾获得Macworld Asia最佳应用大奖，精通图形学、算法等多个领域。自行开发的游戏图形及动作引擎得到成功运用，目前已经获得商业成功。</div>
@@ -43,6 +73,12 @@
                 埃舍尔科技 &copy;2016 EscherVR
             </div>
         </div>
-        @@include('includes/global_js.html')
+        
+    <script src="http://static.eschervr.com/js/lib/zepto-762cc59669.js"></script>
+    <script src="http://static.eschervr.com/js/lib/common-d9165973a8.js"></script>
 
-@@include('includes/footer.html')
+
+
+    </body>
+</html>
+

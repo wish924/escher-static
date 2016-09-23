@@ -1,11 +1,93 @@
+var Config = {
+    //STATIC_DOMAIN: '',
+    STATIC_DOMAIN: 'http://static.eschervr.com'
+};
+
 var Env = {
+    win: window,
+    nav: window.navigator,
+    REG_APPLE: /^Apple/,
     weixin: navigator.userAgent.indexOf('MicroMessenger') > -1,
     android: /android/i.test(navigator.userAgent.toLowerCase()),
     ios: /(iphone|ipad|ipod|ios)/i.test(navigator.userAgent.toLowerCase()),
     ie: navigator.userAgent.match(/MSIE\s([\d.]+)/) || navigator.userAgent.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
+    edge: navigator.userAgent.match(/Edge\/([\d.]+)/),
+    chrome: navigator.userAgent.match(/Chrome\/([\d.]+)/) || navigator.userAgent.match(/CriOS\/([\d.]+)/),
+    webview: !this.chrome && navigator.userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
+    safari: this.webview || navigator.userAgent.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/),
+    chromiumType: null,
+
+    _getChromiumType: function() {
+        if(this.chromiumType != null) {
+            return this.chromiumType;
+        }
+
+        var win = this.win;
+
+        if (this.isIE() || typeof win.scrollMaxX !== 'undefined' || this.REG_APPLE.test(this.nav.vendor || '')) {
+            return '';
+        }
+
+        // 搜狗浏览器
+        if (this._testExternal(/^sogou/i, 0)) {
+            return 'sogou';
+        }
+
+        // 猎豹浏览器
+        if (this._testExternal(/^liebao/i, 0)) {
+            return 'liebao';
+        }
+
+
+        // 360浏览器
+        if (this.nav.mimeTypes[30] || !this.nav.mimeTypes.length) {
+            return '360';
+        }
+
+        // chrome
+        if (win.clientInformation && win.clientInformation.permissions) {
+            return 'chrome';
+        }
+
+        return '';
+    },
+
+    _testExternal: function(reg, type) {
+        var external = this.win.external || {};
+
+        for (var i in external) {
+            if (reg.test(type ? external[i] : i)) {
+                return true;
+            }
+        }
+
+        return false;
+    },
 
     isIE: function() {
         return this.ie != null;
+    },
+
+    ieVersion: function() {
+        return this.ie != null ? parseInt(this.ie[1]) : false;
+    },
+
+    isEdge: function() {
+        return this.edge != null;
+    },
+
+    isSafari: function() {
+        return this.safari != null;
+    },
+
+    is360: function() {
+        this.chromiumType = this._getChromiumType();
+        return this.chromiumType === '360';
+    },
+
+    isSogou: function() {
+        this.chromiumType = this._getChromiumType();
+        return this.chromiumType === 'sogou';
     },
 
     isMobile: function() {
@@ -23,7 +105,13 @@ var Env = {
     isWeixin: function() {
         return this.weixin;
     }
-}
+};
+
+var StaticFile = {
+    getUrl: function(url) {
+        return Config.STATIC_DOMAIN + url;
+    }
+};
 
 var Menu = {
     menu: $('#menu>ul'),
@@ -60,6 +148,8 @@ var Pano = function(container) {
         video.autoplay = true;
         video.crossOrigin = "";
         video.src = url;
+        video.width = 2048;
+        video.height = 1024;
 
         var texture = new THREE.VideoTexture( video );
         texture.minFilter = THREE.LinearFilter;
@@ -75,6 +165,18 @@ var Pano = function(container) {
         init(texture)
     };
 
+    function webglAvailable() {
+        try {
+            var canvas = document.createElement( 'canvas' );
+            return !!( window.WebGLRenderingContext && (
+                        canvas.getContext( 'webgl' ) ||
+                        canvas.getContext( 'experimental-webgl' ) )
+                    );
+        } catch ( e ) {
+            return false;
+        }
+    }
+
     function init(texture) {
         camera = new THREE.PerspectiveCamera( 75, container.clientWidth / container.clientHeight, 1, 1100 );
         camera.target = new THREE.Vector3( 0, 0, 0 );
@@ -87,12 +189,16 @@ var Pano = function(container) {
         var geometry = new THREE.SphereBufferGeometry( radius, 60, 60 );
         geometry.scale( -1, 1, 1 );
 
-        var material = new THREE.MeshBasicMaterial( { map : texture } );
+        var material = new THREE.MeshBasicMaterial( { map : texture, overdraw: true } );
 
         mesh = new THREE.Mesh( geometry, material );
 
         scene.add( mesh );
-        renderer = new THREE.WebGLRenderer();
+        if( !Env.isIE() && webglAvailable() ) {
+            renderer = new THREE.WebGLRenderer();
+        } else {
+            renderer = new THREE.CanvasRenderer();
+        }
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( container.clientWidth, container.clientHeight );
         container.appendChild( renderer.domElement );
@@ -118,7 +224,7 @@ var Pano = function(container) {
 
         renderer.setSize( container.clientWidth, container.clientHeight );
     }
-}
+};
 
 if(typeof THREE == 'object') {
     THREE.OrbitControls = function ( object, domElement ) {

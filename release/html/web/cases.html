@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>案例故事 - 埃舍尔科技</title>
+        
+        
+        <link rel="shortcut icon" type="image/x-icon" href="http://static.eschervr.com/img/web/favicon.ico">
+        
+        <link href="http://static.eschervr.com/css/web/cases-810c86d722.css" rel="stylesheet">
+        
+    </head>
+
+
+
+    <body>
+        <div id="container">
+            <div id="header">
+                <div class="inner">
+                    
+                    <div id="logo">
+                        <img src="http://static.eschervr.com/img/web/logo-small.png" />
+                        <span>埃舍尔科技</span>
+                    </div>
+
+                    <div id="menu-icon" class="toggle"></div>
+
+                    <div id="menu">
+                        <ul>
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/about.html">公司介绍</a></li>
+                            <li><a href="/products.html">产品及服务</a></li>
+                            <li class="active"><a href="/cases.html">案例故事</a></li>
+                            <li><a href="/join.html">加入我们</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="main">
+                <h3><span class="icon"></span>典型案例</h3>
+
+                <p>《香格里拉》 —— 漫漫人生旅途，乘舟抵达彼岸——这里，就是詹姆斯希尔顿笔下的人间天堂。</p>
+                <div class="demo" data-src="http://static.eschervr.com/img/web/xianggelila.jpg"></div>
+
+                <p>《隐藏的森林》 —— 杨丽萍指定服装设计，云南本土原创，80后，有故事的设计师，让我们记住你：石头。</p>
+                <div class="demo" data-src="http://static.eschervr.com/img/web/yincangdesenlin.jpg"></div>
+
+                <p>《彩云之南》 —— 我们热爱镜头下的彩云之南：色彩幻化，霓云流动，资源丰富，民族多情。</p>
+                <div class="demo" data-src="http://static.eschervr.com/img/web/yunnan.jpg"></div>
+
+                <p>《昆明的一天》 —— 埃舍尔团队试图在穿梭人流和扰动光线里，捕捉属于时间的律动，昆明的晨昏，和美丽的青春。</p>
+                <div class="demo" data-src="http://static.eschervr.com/img/web/kunmingdeyitian.jpg"></div>
+
+                <p>《开饭了》 —— 在动画的世界里带你用不一样的视角领略云南美食的诱惑。</p>
+                <div class="demo" data-src="http://static.eschervr.com/img/web/kaifanle.jpg"></div>
+            </div>
+
+            <div id="footer">
+                埃舍尔科技 &copy;2016 EscherVR
+            </div>
+        </div>
+        <script src="http://static.eschervr.com/js/lib/three-7c6c7249ea.js"></script>
+        
+    <script src="http://static.eschervr.com/js/lib/zepto-762cc59669.js"></script>
+    <script src="http://static.eschervr.com/js/lib/common-d9165973a8.js"></script>
+
+        <script>
+            $(function() {
+                var el = [];
+                $('.demo').each(function(i, o) {
+                    if(!Env.isIE()) {
+                        el[i] = new Pano(o);
+                        el[i].initPic($(o).data('src'));
+                    } else {
+                        $(o).append('<img src="' + $(o).data('src') + '" />');
+                    }
+                });
+            });
+        </script>
+
+
+    </body>
+</html>
+

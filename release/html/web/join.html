@@ -1,13 +1,43 @@
-@@include('includes/header.html', {
-    "title": "加入我们",
-    "css": "/css/web/join.css"
-})
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>加入我们 - 埃舍尔科技</title>
+        
+        
+        <link rel="shortcut icon" type="image/x-icon" href="http://static.eschervr.com/img/web/favicon.ico">
+        
+        <link href="http://static.eschervr.com/css/web/join-55f27741d4.css" rel="stylesheet">
+        
+    </head>
+
+
 
     <body>
         <div id="container">
             <div id="header">
                 <div class="inner">
-                    @@include("includes/menu.html", {"active": "join"})
+                    
+                    <div id="logo">
+                        <img src="http://static.eschervr.com/img/web/logo-small.png" />
+                        <span>埃舍尔科技</span>
+                    </div>
+
+                    <div id="menu-icon" class="toggle"></div>
+
+                    <div id="menu">
+                        <ul>
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/about.html">公司介绍</a></li>
+                            <li><a href="/products.html">产品及服务</a></li>
+                            <li><a href="/cases.html">案例故事</a></li>
+                            <li class="active"><a href="/join.html">加入我们</a></li>
+                        </ul>
+                    </div>
+
                 </div>
 
                 <h2>我们乐观开朗、充满激情、对新鲜事物充满好奇心<br />快来加入埃舍尔科技，迎接创新和挑战！</h2>
@@ -240,6 +270,12 @@
                 埃舍尔科技 &copy;2016 EscherVR
             </div>
         </div>
-    @@include('includes/global_js.html')
+    
+    <script src="http://static.eschervr.com/js/lib/zepto-762cc59669.js"></script>
+    <script src="http://static.eschervr.com/js/lib/common-d9165973a8.js"></script>
 
-@@include('includes/footer.html')
+
+
+    </body>
+</html>
+

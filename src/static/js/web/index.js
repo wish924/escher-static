@@ -4,31 +4,31 @@ $(function() {
         $("#container").removeClass("ms-controller");
         $("body").vegas({
             slides: [
-                {src: "/img/web/mountain.jpg"},
+                {src: StaticFile.getUrl("/img/web/mountain.jpg")},
             ],
-            overlay: "/img/web/vegas/overlays/06.png"
+            overlay: StaticFile.getUrl("/img/web/vegas/overlays/06.png")
         });
     }
 
-    if(!Env.isIE()) {
+    if(!Env.isIE() || true) {
         if(Env.isMobile()) {
             $("#loading").hide();
             $("#intro").show();
             $("#container").removeClass("ms-controller");
             var pano = new Pano($('#scene')[0]);
-            pano.initPic("/img/wap/mountain.jpg");
+            pano.initPic( StaticFile.getUrl("/img/wap/mountain.jpg") );
         } else {
             var intros = [
-                { 
-                    video: ["/video/web/web1.mp4", "/video/web/web2.mp4"], 
+                {
+                    video: ["/video/web/web1.mp4", "/video/web/web2.mp4"],
                     text: ["从森林漫步到雪山", "从海洋游览到大地", "我们带你去世界任何一个地方"]
                 },
                 {
-                    video: ["/video/web/web3.mp4", "/video/web/web4.mp4"], 
+                    video: ["/video/web/web3.mp4", "/video/web/web4.mp4"],
                     text: ["对记忆深处的寻访", "对无限宇宙的狂想", "我们展现给你不可思议的景像"]
                 },
                 {
-                    video: ["/video/web/web5.mp4", "/video/web/web6.mp4"], 
+                    video: ["/video/web/web5.mp4", "/video/web/web6.mp4"],
                     text: ["跨越时空的对望", "体验极致的感官", "我们为你呈现从未忘却的梦想"]
                 }
             ];
@@ -86,7 +86,11 @@ var IntroVideoPlay = function(intros) {
 
     function init() {
         var pano = new Pano($('#scene')[0]);
-        videoObj = pano.initVideo(intros[i].video[n]);
+        if(Env.isSafari()) {
+            videoObj = pano.initVideo(intros[i].video[n]);
+        } else {
+            videoObj = pano.initVideo(StaticFile.getUrl(intros[i].video[n]));
+        }
         videoObj.addEventListener('ended', current, false);
 
         $('#loading').hide();
@@ -107,7 +111,11 @@ var IntroVideoPlay = function(intros) {
         var el = getElement(intros[i].text[n]);
 
         if(n == 0) {
-            videoObj.src = intros[i].video[n];
+            if(Env.isSafari()) {
+                videoObj.src = intros[i].video[n];
+            } else {
+                videoObj.src = StaticFile.getUrl(intros[i].video[n]);
+            }
 
             introObj.fadeOut(1000, function() {
                 introObj.empty().show();
@@ -147,7 +155,11 @@ var IntroVideoPlay = function(intros) {
         show();
     };
 
-    preload(init);
+    if(!Env.isSafari() && !Env.isEdge() && !Env.isIE()) {
+        preload(init);
+    } else {
+        init();
+    }
 };
 
 var Preload = {
