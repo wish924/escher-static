@@ -70,7 +70,13 @@ var IntroVideoPlay = function(intros) {
             return;
         }
 
-        Preload.add(intros[i_p].video[n_p], function() {
+        if(Env.isSafari()) {
+            var url = intros[i_p].video[n_p];
+        } else {
+            var url = StaticFile.getUrl(intros[i_p].video[n_p]);
+        }
+
+        Preload.add(url, function() {
             if(typeof callback == 'function') {
                 callback();
             }
@@ -142,7 +148,11 @@ var IntroVideoPlay = function(intros) {
                 }, 100);
             }, 5000);
 
-            videoObj.src = intros[i].video[n];
+            if(Env.isSafari()) {
+                videoObj.src = intros[i].video[n];
+            } else {
+                videoObj.src = StaticFile.getUrl(intros[i].video[n]);
+            }
         }
     }
 
